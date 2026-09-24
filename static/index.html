@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Virtual Interviewer</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <h1>AI Virtual Interviewer</h1>
+        <p>
+          Practice interviews for <strong>any job role</strong>. Ten questions per session, multiple interview types,
+          voice or text answers, optional webcam face presence, and instant NLP-based feedback.
+        </p>
+        <div class="badge-row">
+          <span class="badge">Python + Flask</span>
+          <span class="badge">NLP scoring</span>
+          <span class="badge">Voice &amp; text</span>
+          <span class="badge">Face detection</span>
+        </div>
+      </header>
+
+      <div id="statusBar" class="status-bar">Load this app via the Python server (see terminal).</div>
+
+      <section id="setupPanel" class="panel">
+        <h2><span class="step-num">1</span> Candidate details</h2>
+        <div class="grid-2">
+          <div>
+            <label for="fullName">Full name</label>
+            <input id="fullName" type="text" placeholder="Your name" autocomplete="name" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label for="phone">Phone</label>
+            <input id="phone" type="tel" placeholder="Optional" autocomplete="tel" />
+          </div>
+          <div>
+            <label for="expYears">Experience (years)</label>
+            <input id="expYears" type="text" placeholder="e.g. 3" />
+          </div>
+        </div>
+        <label for="jobRole">Job role (any title)</label>
+        <input
+          id="jobRole"
+          type="text"
+          placeholder="e.g. Cloud Engineer, Registered Nurse, Store Manager, Legal Associate"
+        />
+        <label for="interviewType">Interview type</label>
+        <select id="interviewType"></select>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="btnStart">Start interview (10 questions)</button>
+        </div>
+      </section>
+
+      <section id="interviewPanel" class="panel hidden">
+        <h2><span class="step-num">2</span> Live session</h2>
+        <div class="grid-2">
+          <div>
+            <div class="video-wrap">
+              <video id="videoCam" playsinline muted autoplay></video>
+              <canvas id="faceCanvas" aria-hidden="true"></canvas>
+            </div>
+            <p class="video-hint">
+              Webcam is used for <strong>face presence</strong> (detection, not identity). Allow camera for richer
+              feedback.
+            </p>
+          </div>
+          <div>
+            <div class="question-block">
+              <div class="q-meta">
+                Question <span id="qIndex">1</span> / <span id="qTotal">10</span>
+                · <span class="timer" id="timerEl">0s</span>
+              </div>
+              <p class="q-text" id="qText"></p>
+            </div>
+            <label for="answerText">Your answer (text or use voice)</label>
+            <textarea id="answerText" placeholder="Type here, or use Voice to dictate…"></textarea>
+            <div class="btn-row">
+              <button type="button" class="btn btn-secondary" id="btnVoice">Voice (mic)</button>
+              <button type="button" class="btn btn-primary" id="btnSubmitAnswer">Submit &amp; next</button>
+            </div>
+            <p id="lastFeedback" class="video-hint"></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="reportPanel" class="panel hidden">
+        <h2><span class="step-num">3</span> Interview report (vertical)</h2>
+        <p class="video-hint" style="margin-top: 0">
+          Results are stacked top-to-bottom: identity and role, then scores and narrative feedback.
+        </p>
+        <div id="reportVertical" class="report-vertical"></div>
+        <div class="btn-row" style="margin-top: 1rem">
+          <button type="button" class="btn btn-secondary" id="btnRestart">New session</button>
+        </div>
+      </section>
+
+      <footer>Run from terminal: <code>python app.py</code> — open <code>http://127.0.0.1:5000</code></footer>
+    </div>
+
+    <script src="/static/js/face_session.js"></script>
+    <script src="/static/js/app.js"></script>
+  </body>
+</html>
